@@ -107,6 +107,7 @@ public class Imsi00 {
 				.build();
 		String cacheName = "myCache";
 		EmbeddedCacheManager mgr = new DefaultCacheManager(gc, c);
+		mgr.addListener(new ViewListener());
 		//mgr.defineConfiguration(cacheName, c);
 		Cache<String, String> map = mgr.getCache(cacheName);
 		
@@ -140,6 +141,7 @@ public class Imsi00 {
 				.build();
 		String cacheName = "myCache";
 		EmbeddedCacheManager mgr = new DefaultCacheManager(gc, c);
+		mgr.addListener(new ViewListener());
 		Cache<String, String> map = mgr.getCache(cacheName);
 		
 		String v = null;
@@ -155,5 +157,22 @@ public class Imsi00 {
 				System.out.println("Consume EQP-001 >> " + v);
 			}
 		}
+		
+*** listener
+package test;
+
+import org.infinispan.notifications.Listener;
+import org.infinispan.notifications.cachemanagerlistener.annotation.ViewChanged;
+import org.infinispan.notifications.cachemanagerlistener.event.ViewChangedEvent;
+
+@Listener
+public class ViewListener {
+	@ViewChanged
+	public void viewChanged(ViewChangedEvent ev) {
+		System.out.println("#### NEW : " + ev.getNewMembers());
+		System.out.println("  ## OLD : " + ev.getOldMembers());
+	}
+}
+
  */
 }
