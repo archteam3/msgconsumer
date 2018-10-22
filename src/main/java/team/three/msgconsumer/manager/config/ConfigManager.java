@@ -20,12 +20,15 @@ public class ConfigManager {
 	}
 	private ConfigManager() {
 		brokerType = null;
-		archType = null;
+		archType = 0;
 		eqpSIdx = 0;
 		eqpEIdx = 0;
 		eqpCntPerCnt = 1;
 		configFile = "./msgconsumer.conf";
 		indiv = new HashMap<String, String>();
+		clusterName = "";
+		machineId = "";
+		rackId = "";
 	}
 	
 	public static final String usage = 
@@ -36,11 +39,14 @@ public class ConfigManager {
 	
 	
 	private BrokerType brokerType;
-	private String archType;
+	private int archType;
 	private int eqpSIdx;
 	private int eqpEIdx;
 	private int eqpCntPerCnt;
 	private String configFile;
+	private String clusterName;
+	private String machineId;
+	private String rackId;
 	private Map<String, String> indiv;
 	
 	public void setConfig(String[] args) throws Exception {
@@ -88,7 +94,15 @@ public class ConfigManager {
     			} else if( key.equals(ConfigConst.EQP_PER_THREAD)) {
     				eqpCntPerCnt = Integer.parseInt(glb.get(key));
     			} else if( key.equals(ConfigConst.ARCH_TYPE)) {
-    				archType = glb.get(key);
+    				if( glb.get(key) == null )
+    					throw new Exception("[arch_type] must be defined");
+    				archType = Integer.parseInt(glb.get(key));
+    			} else if( key.equals(ConfigConst.CLUSTER_NAME)) {
+    				clusterName = glb.get(key);
+    			} else if( key.equals(ConfigConst.MACHINE_ID)) {
+    				machineId = glb.get(key);
+    			} else if( key.equals(ConfigConst.RACK_ID)) {
+    				rackId = glb.get(key);
     			}
     		}
     		
@@ -102,7 +116,7 @@ public class ConfigManager {
 	public BrokerType getBrokerType() {
 		return brokerType;
 	}
-	public String getArchType() {
+	public int getArchType() {
 		return archType;
 	}
 	public int getEqpSIdx() {
@@ -114,13 +128,26 @@ public class ConfigManager {
 	public int getEqpCntPerCnt() {
 		return eqpCntPerCnt;
 	}
+	public String getConfigFile() {
+		return configFile;
+	}
+	public String getClusterName() {
+		return clusterName;
+	}
+	public String getMachineId() {
+		return machineId;
+	}
+	public String getRackId() {
+		return rackId;
+	}
 	public Map<String, String> getIndiv() {
 		return indiv;
 	}
 	@Override
 	public String toString() {
 		return "ConfigManager [brokerType=" + brokerType + ", archType=" + archType + ", eqpSIdx=" + eqpSIdx
-				+ ", eqpEIdx=" + eqpEIdx + ", eqpCntPerCnt=" + eqpCntPerCnt + ", configFile=" + configFile + ", indiv="
+				+ ", eqpEIdx=" + eqpEIdx + ", eqpCntPerCnt=" + eqpCntPerCnt + ", configFile=" + configFile
+				+ ", clusterName=" + clusterName + ", machineId=" + machineId + ", rackId=" + rackId + ", indiv="
 				+ indiv + "]";
 	}
 }

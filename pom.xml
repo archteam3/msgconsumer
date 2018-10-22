@@ -10,6 +10,14 @@
   <name>msgconsumer</name>
   <url>http://maven.apache.org</url>
 
+  <repositories>
+    <repository>
+      <id>infinispan-repo</id>
+      <name>infinispan 9.4.0 repository</name>
+      <url>file://${project.basedir}/lib</url>
+    </repository>
+  </repositories>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -70,7 +78,7 @@
     <dependency>
     	<groupId>org.infinispan</groupId>
     	<artifactId>infinispan-embedded</artifactId>
-    	<version>9.1.7.Final</version>
+    	<version>9.4.0.Final</version>
     </dependency>
     <dependency>
     	<groupId>com.rabbitmq</groupId>
@@ -86,6 +94,11 @@
     	<groupId>ch.qos.logback</groupId>
     	<artifactId>logback-classic</artifactId>
     	<version>1.0.13</version>
+    </dependency>
+    <dependency>
+    	<groupId>javax.transaction</groupId>
+    	<artifactId>transaction-api</artifactId>
+    	<version>1.1</version>
     </dependency>
   </dependencies>
 </project>
