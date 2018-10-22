@@ -10,6 +10,7 @@ import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 
 import team.three.msgconsumer.manager.config.ConfigManager;
+import team.three.msgconsumer.manager.status.StatusManager;
 
 public class DataManager {
 	private static DataManager instance = null;
@@ -23,8 +24,9 @@ public class DataManager {
 		}
 		return instance;
 	}
-	private static String controlCacheName = "ctlCache";
-	private static String dataCacheName = "dataCache";
+	private static final String CONTROL_CACHE_NAME = "ctlCache";
+	private static final String DATA_CACHE_NAME = "dataCache";
+	private static final String MASTER_NODE = "master-node"; 
 	
 	private DataManager() { }
 	
@@ -34,13 +36,14 @@ public class DataManager {
 	
 	public void init() {
 		ConfigManager cm = ConfigManager.get();
+		
 		GlobalConfiguration gc = new GlobalConfigurationBuilder()
 				.transport().defaultTransport()
 				.clusterName(cm.getClusterName())
 				.addProperty("configurationFile", "jgroups-tcp.xml")
 				.machineId(cm.getMachineId())
 				.rackId(cm.getRackId())
-				.globalJmxStatistics()
+				.globalJmxStatistics().enable()
 				.build()
 				;
 		Configuration c = new ConfigurationBuilder()
@@ -50,8 +53,21 @@ public class DataManager {
 				;
 		mgr = new DefaultCacheManager(gc, c);
 		mgr.addListener(new ClusterListener());
-		controlCache = mgr.getCache(controlCacheName);
-		dataCache = mgr.getCache(dataCacheName);
+		controlCache = mgr.getCache(CONTROL_CACHE_NAME);
+		dataCache = mgr.getCache(DATA_CACHE_NAME);
+		
+		String mst = controlCache.get(MASTER_NODE);
+		if( mst == null ) {
+			controlCache.put(MASTER_NODE, cm.getMachineId());
+			StatusManager.get().setMaster();
+		} else if( mst.equals(cm.getMachineId()) ) {
+			StatusManager.get().setMaster();
+		}
+		
+	}
+	
+	public void setMaster() {
+		controlCache.put(MASTER_NODE, ConfigManager.get().getMachineId());
 	}
 	
 	public Cache<String, String> getCtlCache(){
