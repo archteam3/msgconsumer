@@ -21,13 +21,21 @@ public class StatusManager {
 	}
 	
 	private AtomicBoolean master;
+	private int priority;
 	
 	public void setMaster() {
 		master.set(true);
-		DataManager.get().setMaster();
 	}
 	
 	public boolean isMaster() {
 		return master.get();
+	}
+	
+	public int getPriority() {
+		return this.priority;
+	}
+	
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 }

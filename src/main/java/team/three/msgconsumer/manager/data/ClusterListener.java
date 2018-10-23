@@ -16,7 +16,7 @@ public class ClusterListener {
 		
 		if( ev.getNewMembers().size() == 1 ) {
 			System.out.println("##=> make Master");
-			StatusManager.get().setMaster();
+			DataManager.get().setMaster();
 		}
 	}
 }

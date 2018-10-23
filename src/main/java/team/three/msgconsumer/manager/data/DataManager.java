@@ -27,15 +27,18 @@ public class DataManager {
 	private static final String CONTROL_CACHE_NAME = "ctlCache";
 	private static final String DATA_CACHE_NAME = "dataCache";
 	private static final String MASTER_NODE = "master-node"; 
+	private static final String MASTER_PRIORITY = "master-priority";
 	
 	private DataManager() { }
 	
 	private EmbeddedCacheManager mgr;
+	private String machineId;
 	private Cache<String, String> controlCache;
 	private Cache<String, Object> dataCache;
 	
 	public void init() {
 		ConfigManager cm = ConfigManager.get();
+		machineId = cm.getMachineId();
 		
 		GlobalConfiguration gc = new GlobalConfigurationBuilder()
 				.transport().defaultTransport()
@@ -53,21 +56,33 @@ public class DataManager {
 				;
 		mgr = new DefaultCacheManager(gc, c);
 		mgr.addListener(new ClusterListener());
+		
+		//mgr.addListener(new Liste);
+		
 		controlCache = mgr.getCache(CONTROL_CACHE_NAME);
 		dataCache = mgr.getCache(DATA_CACHE_NAME);
 		
-		String mst = controlCache.get(MASTER_NODE);
+		String mst = getMasterNode();
 		if( mst == null ) {
-			controlCache.put(MASTER_NODE, cm.getMachineId());
+			controlCache.put(MASTER_NODE, machineId);
+			controlCache.put(MASTER_PRIORITY, Integer.toString(Integer.MAX_VALUE));
+			StatusManager.get().setPriority(Integer.MAX_VALUE - 1);
 			StatusManager.get().setMaster();
-		} else if( mst.equals(cm.getMachineId()) ) {
-			StatusManager.get().setMaster();
+		} else {
+			StatusManager.get().setPriority(Integer.parseInt(controlCache.get(MASTER_PRIORITY)) - 1);
 		}
 		
 	}
+	private String getMasterNode() {
+		return controlCache.get(MASTER_NODE);
+	}
 	
 	public void setMaster() {
-		controlCache.put(MASTER_NODE, ConfigManager.get().getMachineId());
+		if( !getMasterNode().equals(machineId) ) {
+			controlCache.put(MASTER_NODE, machineId);
+			controlCache.put(MASTER_PRIORITY, Integer.toString(StatusManager.get().getPriority()));
+			StatusManager.get().setMaster();
+		}
 	}
 	
 	public Cache<String, String> getCtlCache(){
