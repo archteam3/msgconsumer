@@ -1,5 +1,6 @@
 package team.three.msgconsumer;
 
+import team.three.msgconsumer.business.Reporter;
 import team.three.msgconsumer.manager.arch.ArchSelector;
 import team.three.msgconsumer.manager.config.ConfigManager;
 import team.three.msgconsumer.manager.data.DataManager;
@@ -20,6 +21,8 @@ public class MsgConsumerApp
         dm.init();
         System.out.println("------> isMaster : " + StatusManager.get().isMaster() 
         		+ "    priority:" + StatusManager.get().getPriority());
+        Reporter report = new Reporter();
+        report.start();
         ArchSelector.get().build();
     }
 }

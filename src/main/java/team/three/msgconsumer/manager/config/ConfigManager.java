@@ -47,6 +47,7 @@ public class ConfigManager {
 	private String clusterName;
 	private String machineId;
 	private String rackId;
+	private int reporterPort;
 	private Map<String, String> indiv;
 	
 	public void setConfig(String[] args) throws Exception {
@@ -103,6 +104,8 @@ public class ConfigManager {
     				machineId = glb.get(key);
     			} else if( key.equals(ConfigConst.RACK_ID)) {
     				rackId = glb.get(key);
+    			} else if( key.equals(ConfigConst.REPORTER_SOCKET_PORT)) {
+    				reporterPort = Integer.parseInt(glb.get(key));
     			}
     		}
     		
@@ -143,11 +146,14 @@ public class ConfigManager {
 	public Map<String, String> getIndiv() {
 		return indiv;
 	}
+	public int getReporterPort() {
+		return reporterPort;
+	}
 	@Override
 	public String toString() {
 		return "ConfigManager [brokerType=" + brokerType + ", archType=" + archType + ", eqpSIdx=" + eqpSIdx
 				+ ", eqpEIdx=" + eqpEIdx + ", eqpCntPerCnt=" + eqpCntPerCnt + ", configFile=" + configFile
-				+ ", clusterName=" + clusterName + ", machineId=" + machineId + ", rackId=" + rackId + ", indiv="
-				+ indiv + "]";
+				+ ", clusterName=" + clusterName + ", machineId=" + machineId + ", rackId=" + rackId + ", reporterPort="
+				+ reporterPort + ", indiv=" + indiv + "]";
 	}
 }

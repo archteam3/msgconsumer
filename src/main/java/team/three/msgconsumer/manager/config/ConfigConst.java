@@ -9,5 +9,6 @@ public class ConfigConst {
 	public static final String CLUSTER_NAME = "cluster_name";
 	public static final String MACHINE_ID = "machine_id";
 	public static final String RACK_ID = "rack_id";
+	public static final String REPORTER_SOCKET_PORT = "reporter_socket_port";
 	
 }
