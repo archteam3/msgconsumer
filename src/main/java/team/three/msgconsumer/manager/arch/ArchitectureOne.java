@@ -40,6 +40,7 @@ public class ArchitectureOne implements IArchitecture {
 			}
 			
 			thdLst.add(msgBroker.createArchOneThread(eqpList));
+			stdIdx = endIdx + 1;
 		}
 		
 		for(Thread t : thdLst) {
