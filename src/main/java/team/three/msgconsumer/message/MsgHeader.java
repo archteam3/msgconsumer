@@ -8,8 +8,8 @@ public class MsgHeader {
 	public final int index;
 	
 	public MsgHeader(byte[] body) {
-		nanoTime = Long.parseLong(new String(Arrays.copyOfRange(body, 0, 20)));
-		eqpId = new String(Arrays.copyOfRange(body, 21, 30));
-		index = Integer.parseInt(new String(Arrays.copyOfRange(body, 31, 40)));
+		nanoTime = Long.parseLong(new String(Arrays.copyOfRange(body, 0, 20)).trim());
+		eqpId = new String(Arrays.copyOfRange(body, 21, 30)).trim();
+		index = Integer.parseInt(new String(Arrays.copyOfRange(body, 31, 40)).trim());
 	}
 }
