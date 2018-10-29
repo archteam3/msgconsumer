@@ -11,6 +11,7 @@ import team.three.msgconsumer.props.IdMaker;
 
 public class ArchitectureTwo implements IArchitecture {
 	private IMsgBroker msgBroker;
+	private Thread msgDispatcher;
 
 	@Override
 	public void build(IMsgBroker broker) throws Exception {
@@ -30,14 +31,15 @@ public class ArchitectureTwo implements IArchitecture {
 		}
 		
 		TaskManager.get().init();
-		Thread msgDispatcher = broker.createArchTwoThread(eqpLst);
+		msgDispatcher = broker.createArchTwoThread(eqpLst);
 		msgDispatcher.start();
 	}
 
 	@Override
 	public void destruct() {
 		// TODO Auto-generated method stub
-
+		msgDispatcher.interrupt();
+		msgBroker.disconnect();
 	}
 
 }

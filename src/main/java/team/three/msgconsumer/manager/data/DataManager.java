@@ -25,7 +25,7 @@ public class DataManager {
 		return instance;
 	}
 	private static final String CONTROL_CACHE_NAME = "ctlCache";
-	private static final String EQP_CACHE_NAME = "eqpCache";
+	private static final String EQP_CACHE_NAME = "eqpCache" ;
 	private static final String DATA_CACHE_NAME = "dataCache";
 	private static final String MASTER_NODE = "master-node"; 
 	private static final String MASTER_PRIORITY = "master-priority";

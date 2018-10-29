@@ -24,7 +24,7 @@ public class TaskExecutor extends Thread {
 		que.offer(msg);
 	}
 		
-	public void run() {
+	public void run( ) {
 		StatusManager sm = StatusManager.get();
 		int lastIdx;
 		try {

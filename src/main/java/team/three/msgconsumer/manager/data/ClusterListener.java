@@ -10,10 +10,10 @@ import team.three.msgconsumer.manager.status.StatusManager;
 public class ClusterListener {
 	@ViewChanged
 	public void viewChanged(ViewChangedEvent ev) {
-
+		/*
 		System.out.println("#### NEW : " + ev.getNewMembers());
 		System.out.println("  ## OLD : " + ev.getOldMembers());
-		
+		*/
 		if( ev.getNewMembers().size() == 1 ) {
 			System.out.println("##=> make Master");
 			DataManager.get().setMaster();

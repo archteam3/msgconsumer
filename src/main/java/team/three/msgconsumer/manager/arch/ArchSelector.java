@@ -38,6 +38,6 @@ public class ArchSelector {
 				arch = new ArchitectureTwo();
 			}
 		}
-		arch.build(broker);
+		arch.build( broker );
 	}
 }

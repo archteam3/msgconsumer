@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -33,7 +34,7 @@ public class RabbitWorkerI extends Thread {
 			channel.queueBind(queName, cm.getIndiv().get("exchange_name"), k);
 		}
 	}
-	
+		
 	public void run() {
 		try {
 			SampleBusiness sb = new SampleBusiness();

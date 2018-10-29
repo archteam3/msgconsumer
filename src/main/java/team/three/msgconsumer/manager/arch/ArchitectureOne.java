@@ -55,7 +55,10 @@ public class ArchitectureOne implements IArchitecture {
 	@Override
 	public void destruct() {
 		// TODO Auto-generated method stub
-		
+		for(Thread t : thdLst) {
+			t.interrupt();
+		}
+		msgBroker.disconnect();
 	}
 
 }

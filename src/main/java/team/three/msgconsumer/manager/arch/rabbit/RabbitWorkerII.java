@@ -29,12 +29,12 @@ public class RabbitWorkerII extends Thread {
 			channel.queueBind(queName, cm.getIndiv().get("exchange_name"), k);
 		}
 	}
-	
+		
 	public void run() {
 		try {
 			TaskManager tm = TaskManager.get();
 			channel.basicConsume(queName, true, new DefaultConsumer(channel){
-				@Override
+				@Override 
 				public void handleDelivery(String consumerTag,
 						Envelope envelope,
 						AMQP.BasicProperties properties,

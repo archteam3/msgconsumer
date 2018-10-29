@@ -1,6 +1,7 @@
 package team.three.msgconsumer.manager.arch;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import team.three.msgconsumer.manager.config.ConfigManager;
@@ -28,6 +29,14 @@ public class TaskManager {
 			TaskExecutor te = new TaskExecutor();
 			thds.put(IdMaker.makeEqpId(i), te);
 			te.start();
+		}
+	}
+	
+	public void disconnect() {
+		Iterator<String> keys = thds.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			thds.get(key).interrupt();
 		}
 	}
 	

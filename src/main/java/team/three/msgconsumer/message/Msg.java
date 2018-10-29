@@ -6,6 +6,6 @@ public class Msg {
 	
 	public Msg(byte[] body) {
 		this.body = body;
-		hdr = new MsgHeader(this.body);
+		hdr = new MsgHeader( this.body );
 	}
 }
