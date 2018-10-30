@@ -44,7 +44,9 @@ public class RabbitMsgBroker implements IMsgBroker {
 	@Override
 	public Thread createArchTwoThread(List<String> eqpLst)  throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		RabbitWorkerII rwi = new RabbitWorkerII();
+		rwi.make(connection, eqpLst);
+		return rwi;
 	}
 
 }

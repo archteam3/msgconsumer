@@ -7,8 +7,7 @@ import team.three.msgconsumer.manager.data.DataManager;
 import team.three.msgconsumer.manager.status.StatusManager;
 
 /**
- * 
- *
+ * Message Consumer
  */
 public class MsgConsumerApp 
 {

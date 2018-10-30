@@ -25,6 +25,7 @@ public class DataManager {
 		return instance;
 	}
 	private static final String CONTROL_CACHE_NAME = "ctlCache";
+	private static final String EQP_CACHE_NAME = "eqpCache" ;
 	private static final String DATA_CACHE_NAME = "dataCache";
 	private static final String MASTER_NODE = "master-node"; 
 	private static final String MASTER_PRIORITY = "master-priority";
@@ -34,6 +35,7 @@ public class DataManager {
 	private EmbeddedCacheManager mgr;
 	private String machineId;
 	private Cache<String, String> controlCache;
+	private Cache<String, Integer> eqpCache;
 	private Cache<String, Object> dataCache;
 	
 	public void init() {
@@ -61,6 +63,7 @@ public class DataManager {
 		
 		controlCache = mgr.getCache(CONTROL_CACHE_NAME);
 		dataCache = mgr.getCache(DATA_CACHE_NAME);
+		eqpCache = mgr.getCache(EQP_CACHE_NAME);
 		
 		String mst = getMasterNode();
 		if( mst == null ) {
@@ -91,5 +94,9 @@ public class DataManager {
 	
 	public Cache<String, Object> getDataCache(){
 		return dataCache;
+	}
+	
+	public Cache<String, Integer> getEqpCache(){
+		return eqpCache;
 	}
 }

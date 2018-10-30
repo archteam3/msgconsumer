@@ -63,8 +63,10 @@ public class Reporter extends Thread {
 			abnormalCnt += itm.getAbnormalCnt();
 			elapsedTime += itm.getElapsedNano();
 		}
-		if( totalCnt > 0 )
+
+		if( totalCnt > 0 ) {
 			elapsedTime = elapsedTime / totalCnt;
+		}
 		
 		return "Equipment Cnt : " + (cm.getEqpEIdx() - cm.getEqpSIdx() + 1)
 				+ " (" + IdMaker.makeEqpId(cm.getEqpSIdx()) + " ~ " + IdMaker.makeEqpId(cm.getEqpEIdx()) + "\n"

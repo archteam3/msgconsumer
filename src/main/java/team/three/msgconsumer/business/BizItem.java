@@ -28,7 +28,7 @@ public class BizItem {
 	}
 	
 	public long getElapsedNano() {
-		return elapsedTotal / totalCnt;
+		return elapsedTotal;		
 	}
 	
 	public long doit(MsgHeader hdr) {

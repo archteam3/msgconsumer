@@ -31,15 +31,13 @@ public class ArchSelector {
 		} else if( cm.getBrokerType() == BrokerType.NATS ) {
 			throw new Exception("NATS is not work yet!");
 		} else if( cm.getBrokerType() == BrokerType.RabbitMQ ) {
+			broker = new RabbitMsgBroker();
 			if( cm.getArchType() == 1 ) {
-				broker = new RabbitMsgBroker();
 				arch = new ArchitectureOne();
 			} else {
-				
+				arch = new ArchitectureTwo();
 			}
 		}
-		broker.connect();
-		arch.build(broker);
-		
+		arch.build( broker );
 	}
 }

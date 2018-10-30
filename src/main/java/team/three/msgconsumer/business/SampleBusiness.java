@@ -14,6 +14,9 @@ public class SampleBusiness {
 	
 	public void bizMain(MsgHeader hdr, byte[] body) {
 		BizItem bi = (BizItem)dCache.get(hdr.eqpId);
+		if( bi == null ) {
+			bi = new BizItem();
+		}
 		bi.doit(hdr);
 		dCache.put(hdr.eqpId, bi);
 	}
