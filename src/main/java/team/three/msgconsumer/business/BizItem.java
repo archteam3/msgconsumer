@@ -34,7 +34,7 @@ public class BizItem {
 	public long doit(MsgHeader hdr) {
 		long ret = 0L;
 		totalCnt++;
-		if( hdr.index != (prevIdx + 1)) {
+		if( hdr.index <= prevIdx ) {
 			abnormalCnt++;
 		}
 		prevIdx = hdr.index;
