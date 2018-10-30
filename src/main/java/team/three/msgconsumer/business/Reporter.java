@@ -63,6 +63,7 @@ public class Reporter extends Thread {
 			abnormalCnt += itm.getAbnormalCnt();
 			elapsedTime += itm.getElapsedNano();
 		}
+
 		if( totalCnt > 0 ) {
 			elapsedTime = elapsedTime / totalCnt;
 		}
