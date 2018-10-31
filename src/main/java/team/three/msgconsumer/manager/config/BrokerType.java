@@ -5,7 +5,7 @@ import java.util.Locale;
 public enum BrokerType {
 	KAFKA("Kafka"),
 	NATS("NATS"),
-	RabbitMQ("RabbitMQ")
+	RABBITMQ("RabbitMQ")
 	;
 	private String name;
 	

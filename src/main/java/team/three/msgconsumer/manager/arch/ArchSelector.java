@@ -30,7 +30,7 @@ public class ArchSelector {
 			throw new Exception("Kafka is not work yet!");
 		} else if( cm.getBrokerType() == BrokerType.NATS ) {
 			throw new Exception("NATS is not work yet!");
-		} else if( cm.getBrokerType() == BrokerType.RabbitMQ ) {
+		} else if( cm.getBrokerType() == BrokerType.RABBITMQ ) {
 			broker = new RabbitMsgBroker();
 			if( cm.getArchType() == 1 ) {
 				arch = new ArchitectureOne();
