@@ -1,5 +1,7 @@
 package team.three.msgconsumer.manager.arch.kafka;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
 import java.time.Duration;
@@ -9,6 +11,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import team.three.msgconsumer.manager.arch.TaskManager;
+import team.three.msgconsumer.manager.config.ConfigManager;
 
 public class KafkaWorkerII extends Thread {
 	public void run() {
@@ -16,10 +19,12 @@ public class KafkaWorkerII extends Thread {
 		TaskManager tm = TaskManager.get();
 		try {
 			Properties props = new Properties();
-		    props.put("bootstrap.servers", "localhost:9092");
-		    props.put("group.id", "test");
-		    props.put("enable.auto.commit", "true");
-		    props.put("auto.commit.interval.ms", "1000");
+			Map<String, String> cMap = ConfigManager.get().getIndiv();
+			Iterator<String> keys = cMap.keySet().iterator();
+			while( keys.hasNext() ) {
+				String key = keys.next();
+				props.put(key, cMap.get(key));
+			}
 		    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 		    props.put("value.deserializer", "org.apache.kafka.common.serialization.ByteArrayDeserializer");
 		    consumer = new KafkaConsumer<>(props);
