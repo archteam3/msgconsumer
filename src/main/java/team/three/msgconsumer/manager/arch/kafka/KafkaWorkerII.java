@@ -2,6 +2,7 @@ package team.three.msgconsumer.manager.arch.kafka;
 
 import java.util.Properties;
 import java.util.regex.Pattern;
+import java.time.Duration;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -25,7 +26,7 @@ public class KafkaWorkerII extends Thread {
 		    Pattern ptn = Pattern.compile("EQP-*");
 		    consumer.subscribe(ptn);
 		    while (true) {
-		        ConsumerRecords<String, byte[]> records = consumer.poll(20);
+		        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
 		        for (ConsumerRecord<String, byte[]> record : records)
 		        	tm.msg(record.value());
 		    }	
