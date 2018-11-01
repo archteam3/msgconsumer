@@ -59,6 +59,7 @@ public class Reporter extends Thread {
 		long elapsedTime = 0L;
 		for( String key : dc.keySet() ) {
 			BizItem itm = (BizItem)dc.get(key);
+			System.out.println(itm.toString());
 			totalCnt += itm.getTotalCnt();
 			abnormalCnt += itm.getAbnormalCnt();
 			elapsedTime += itm.getElapsedNano();
