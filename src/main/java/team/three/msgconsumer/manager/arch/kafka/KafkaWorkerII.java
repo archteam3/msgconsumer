@@ -39,7 +39,7 @@ public class KafkaWorkerII extends Thread {
 		    consumer.subscribe(topicArr);
 		    
 		    while (true) {
-		        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
+		        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(50));
 		        for (ConsumerRecord<String, byte[]> record : records)
 		        	tm.msg(record.value());
 		    }	
