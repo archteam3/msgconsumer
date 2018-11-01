@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.infinispan.Cache;
+import org.infinispan.commons.util.CloseableIterator;
 
 import team.three.msgconsumer.manager.config.ConfigManager;
 import team.three.msgconsumer.manager.data.DataManager;
@@ -57,13 +58,16 @@ public class Reporter extends Thread {
 		int totalCnt = 0;
 		int abnormalCnt = 0;
 		long elapsedTime = 0L;
-		for( String key : dc.keySet() ) {
+		CloseableIterator<String> keys = dc.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
 			BizItem itm = (BizItem)dc.get(key);
 			System.out.println(itm.toString());
 			totalCnt += itm.getTotalCnt();
 			abnormalCnt += itm.getAbnormalCnt();
 			elapsedTime += itm.getElapsedNano();
 		}
+		keys.close();
 
 		if( totalCnt > 0 ) {
 			elapsedTime = elapsedTime / totalCnt;
