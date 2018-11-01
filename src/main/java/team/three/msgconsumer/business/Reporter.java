@@ -58,7 +58,6 @@ public class Reporter extends Thread {
 		int totalCnt = 0;
 		int abnormalCnt = 0;
 		long elapsedTime = 0L;
-		System.out.println((BizItem)dc.get("EQP-0001"));
 		CloseableIterator<String> keys = dc.keySet().iterator();
 		while(keys.hasNext()) {
 			String key = keys.next();

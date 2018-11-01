@@ -21,6 +21,6 @@ public class SampleBusiness {
 		bi.doit(hdr);
 		dCache.put(hdr.eqpId, bi);
 		
-		System.out.println(hdr.eqpId + "  : " + bi.toString());
+		//System.out.println(hdr.eqpId + "  : " + bi.toString());
 	}
 }
