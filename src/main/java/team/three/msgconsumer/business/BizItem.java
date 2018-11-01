@@ -42,7 +42,7 @@ public class BizItem  implements Serializable {
 		}
 		prevIdx = hdr.index;
 		ret = System.nanoTime() - hdr.nanoTime;
-		elapsedTotal += ret / 1000000;
+		elapsedTotal += (ret / 1000000);
 		return ret;
 	}
 

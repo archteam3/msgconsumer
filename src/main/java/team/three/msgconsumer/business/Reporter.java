@@ -62,10 +62,10 @@ public class Reporter extends Thread {
 		while(keys.hasNext()) {
 			String key = keys.next();
 			BizItem itm = (BizItem)dc.get(key);
-			System.out.println(itm.toString());
 			totalCnt += itm.getTotalCnt();
 			abnormalCnt += itm.getAbnormalCnt();
 			elapsedTime += itm.getElapsedNano();
+			System.out.println("[" + key + "] : " + itm.toString());
 		}
 		keys.close();
 
