@@ -44,14 +44,15 @@ public class KafkaWorkerII extends Thread {
 		        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(50));
 		        cnt = cnt + records.count();
 		        for (ConsumerRecord<String, byte[]> record : records) {
-		        	rCnt++;
+		        	//rCnt++;
 		        	tm.msg(record.value());
 		        }
-		        
+		        /*
 		        if( bCnt != cnt) {
 		        	System.out.println("> cnt : " + cnt + " rCnt : " + rCnt);
 		        	bCnt = cnt;
 		        }
+		        */
 		    }	
 		} catch ( Exception ie ) {
 			ie.printStackTrace();

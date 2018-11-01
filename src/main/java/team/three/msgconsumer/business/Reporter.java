@@ -75,7 +75,7 @@ public class Reporter extends Thread {
 			elapsedTime = elapsedTime / totalCnt;
 		}
 		
-		TaskManager.get().printCnt();
+		//TaskManager.get().printCnt();
 		
 		return "Equipment Cnt : " + (cm.getEqpEIdx() - cm.getEqpSIdx() + 1)
 				+ " (" + IdMaker.makeEqpId(cm.getEqpSIdx()) + " ~ " + IdMaker.makeEqpId(cm.getEqpEIdx()) + "\n"
