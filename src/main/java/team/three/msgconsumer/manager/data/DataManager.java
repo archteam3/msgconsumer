@@ -53,7 +53,7 @@ public class DataManager {
 				;
 		Configuration c = new ConfigurationBuilder()
 				.clustering()
-				.cacheMode(CacheMode.REPL_ASYNC).sync()
+				.cacheMode(CacheMode.REPL_ASYNC)
 				.build()
 				;
 		mgr = new DefaultCacheManager(gc, c);
