@@ -22,6 +22,10 @@ public class BizItem  implements Serializable {
 		elapsedTotal = 0;
 	}
 	
+	public int getPrivIdx() {
+		return prevIdx;
+	}
+	
 	public int getTotalCnt() {
 		return totalCnt;
 	}

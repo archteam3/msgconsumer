@@ -65,7 +65,8 @@ public class Reporter extends Thread {
 			totalCnt += itm.getTotalCnt();
 			abnormalCnt += itm.getAbnormalCnt();
 			elapsedTime += itm.getElapsedNano();
-			System.out.println("[" + key + "] : " + itm.toString());
+			if( itm.getTotalCnt() != itm.getPrivIdx() || itm.getAbnormalCnt() > 0 )
+				System.out.println("[" + key + "] : " + itm.toString());
 		}
 		keys.close();
 
