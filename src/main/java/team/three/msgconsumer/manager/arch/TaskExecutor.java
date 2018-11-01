@@ -14,14 +14,21 @@ public class TaskExecutor extends Thread {
 	private Cache<String, Integer> eCache;
 	private SampleBusiness biz;
 	
+	private long cnt;
+	
 	public TaskExecutor() {
 		que = new ConcurrentLinkedQueue<>();
 		eCache = DataManager.get().getEqpCache();
 		biz = new SampleBusiness();
+		cnt = 0;
 	}
 	
 	public void put(Msg msg) {
 		que.offer(msg);
+	}
+	
+	public long getCnt() {
+		return cnt;
 	}
 		
 	public void run( ) {
@@ -33,6 +40,7 @@ public class TaskExecutor extends Thread {
 				if( msg != null ) {
 					while(true) {
 						if( sm.isMaster() ) {
+							cnt++;
 							biz.bizMain(msg.hdr, msg.body);
 							eCache.put(msg.hdr.eqpId, msg.hdr.index);
 							break;

@@ -45,4 +45,12 @@ public class TaskManager {
 		TaskExecutor te = thds.get(msg.hdr.eqpId);
 		te.put(msg);
 	}
+	
+	public void printCnt() {
+		Iterator<String> keys = thds.keySet().iterator();
+		while(keys.hasNext()) {
+			String key = keys.next();
+			System.out.println("#key:" + key + "  cnt:" + thds.get(key).getCnt());
+		}
+	}
 }
