@@ -1,8 +1,8 @@
 package team.three.msgconsumer.manager.arch;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import team.three.msgconsumer.manager.config.ConfigManager;
 import team.three.msgconsumer.message.Msg;
@@ -24,7 +24,7 @@ public class TaskManager {
 	
 	public void init() {
 		ConfigManager cm = ConfigManager.get();
-		thds = new HashMap<String, TaskExecutor>();
+		thds = new ConcurrentHashMap<String, TaskExecutor>();
 		for( int i=cm.getEqpSIdx(); i<=cm.getEqpEIdx(); i++) {
 			TaskExecutor te = new TaskExecutor();
 			thds.put(IdMaker.makeEqpId(i), te);
