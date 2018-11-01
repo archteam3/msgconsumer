@@ -1,8 +1,10 @@
 package team.three.msgconsumer.business;
 
+import java.io.Serializable;
+
 import team.three.msgconsumer.message.MsgHeader;
 
-public class BizItem {
+public class BizItem  implements Serializable {
 
 	private int prevIdx;
 	private int totalCnt;
