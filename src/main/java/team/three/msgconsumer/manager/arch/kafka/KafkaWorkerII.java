@@ -38,13 +38,17 @@ public class KafkaWorkerII extends Thread {
 		    //Pattern ptn = Pattern.compile("EQP-*");
 		    consumer.subscribe(topicArr);
 		    long cnt = 0L;
+		    long bCnt = 0L;
 		    while (true) {
 		        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(50));
 		        cnt = cnt + records.count();
 		        for (ConsumerRecord<String, byte[]> record : records)
 		        	tm.msg(record.value());
 		        
-		        System.out.println("----> cnt : " + cnt);
+		        if( bCnt != cnt) {
+		        	System.out.println("----> cnt : " + cnt);
+		        	bCnt = cnt;
+		        }
 		    }	
 		} catch ( Exception ie ) {
 			ie.printStackTrace();
