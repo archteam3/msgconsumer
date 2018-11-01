@@ -3,6 +3,7 @@ package team.three.msgconsumer.business;
 import team.three.msgconsumer.message.MsgHeader;
 
 public class BizItem {
+
 	private int prevIdx;
 	private int totalCnt;
 	private int abnormalCnt;
@@ -41,5 +42,11 @@ public class BizItem {
 		ret = System.nanoTime() - hdr.nanoTime;
 		elapsedTotal += ret;
 		return ret;
+	}
+
+	@Override
+	public String toString() {
+		return "BizItem [prevIdx=" + prevIdx + ", totalCnt=" + totalCnt + ", abnormalCnt=" + abnormalCnt
+				+ ", elapsedTotal=" + elapsedTotal + "]";
 	}
 }

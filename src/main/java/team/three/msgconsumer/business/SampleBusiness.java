@@ -16,8 +16,11 @@ public class SampleBusiness {
 		BizItem bi = (BizItem)dCache.get(hdr.eqpId);
 		if( bi == null ) {
 			bi = new BizItem();
+			bi.init();
 		}
 		bi.doit(hdr);
 		dCache.put(hdr.eqpId, bi);
+		
+		System.out.println(hdr.eqpId + "  : " + bi.toString());
 	}
 }
