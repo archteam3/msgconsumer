@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.infinispan.Cache;
 import org.infinispan.commons.util.CloseableIterator;
 
+import team.three.msgconsumer.manager.arch.TaskManager;
 import team.three.msgconsumer.manager.config.ConfigManager;
 import team.three.msgconsumer.manager.data.DataManager;
 import team.three.msgconsumer.props.IdMaker;
@@ -73,6 +74,8 @@ public class Reporter extends Thread {
 		if( totalCnt > 0 ) {
 			elapsedTime = elapsedTime / totalCnt;
 		}
+		
+		TaskManager.get().printCnt();
 		
 		return "Equipment Cnt : " + (cm.getEqpEIdx() - cm.getEqpSIdx() + 1)
 				+ " (" + IdMaker.makeEqpId(cm.getEqpSIdx()) + " ~ " + IdMaker.makeEqpId(cm.getEqpEIdx()) + "\n"
