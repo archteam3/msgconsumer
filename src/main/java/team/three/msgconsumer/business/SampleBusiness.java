@@ -14,7 +14,7 @@ public class SampleBusiness {
 	
 	public void bizMain(MsgHeader hdr, byte[] body) {
 		BizItem bi = (BizItem)dCache.get(hdr.eqpId);
-		System.out.println(hdr.eqpId + "  : get Cache : " + bi);
+
 		if( bi == null ) {
 			bi = new BizItem();
 		}

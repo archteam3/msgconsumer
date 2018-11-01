@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Pattern;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -21,7 +20,7 @@ public class KafkaWorkerII extends Thread {
 		KafkaConsumer<String, byte[]> consumer = null;
 		TaskManager tm = TaskManager.get();
 		List<String> topicArr = new ArrayList<>();
-		for( int i=ConfigManager.get().getEqpEIdx(); i<=ConfigManager.get().getEqpEIdx(); i++) {
+		for( int i=ConfigManager.get().getEqpSIdx(); i<=ConfigManager.get().getEqpEIdx(); i++) {
 			topicArr.add(IdMaker.makeEqpId(i));
 		}
 		
@@ -38,6 +37,7 @@ public class KafkaWorkerII extends Thread {
 		    consumer = new KafkaConsumer<>(props);
 		    //Pattern ptn = Pattern.compile("EQP-*");
 		    consumer.subscribe(topicArr);
+		    
 		    while (true) {
 		        ConsumerRecords<String, byte[]> records = consumer.poll(Duration.ofMillis(100));
 		        for (ConsumerRecord<String, byte[]> record : records)
