@@ -3,6 +3,7 @@ package team.three.msgconsumer.manager.arch;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 import team.three.msgconsumer.manager.config.ConfigManager;
 import team.three.msgconsumer.message.Msg;
@@ -20,7 +21,8 @@ public class TaskManager {
 		return instance;
 	}
 	
-	Map<String, TaskExecutor> thds;
+	private Map<String, TaskExecutor> thds;
+	private AtomicLong al;
 	
 	public void init() {
 		ConfigManager cm = ConfigManager.get();
@@ -30,6 +32,7 @@ public class TaskManager {
 			thds.put(IdMaker.makeEqpId(i), te);
 			te.start();
 		}
+		al = new AtomicLong(0);
 	}
 	
 	public void disconnect() {
@@ -43,6 +46,7 @@ public class TaskManager {
 	public void msg(byte[] body) {
 		Msg msg = new Msg(body);
 		TaskExecutor te = thds.get(msg.hdr.eqpId);
+		al.incrementAndGet();
 		te.put(msg);
 	}
 	
@@ -52,5 +56,6 @@ public class TaskManager {
 			String key = keys.next();
 			System.out.println("#key:" + key + "  cnt:" + thds.get(key).getCnt());
 		}
+		System.out.println("=== Total pass cnt : " + al.get());
 	}
 }
