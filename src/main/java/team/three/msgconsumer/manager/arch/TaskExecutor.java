@@ -1,6 +1,7 @@
 package team.three.msgconsumer.manager.arch;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.infinispan.Cache;
 
@@ -14,13 +15,13 @@ public class TaskExecutor extends Thread {
 	private Cache<String, Integer> eCache;
 	private SampleBusiness biz;
 	
-	private long cnt;
+	private AtomicLong cnt;
 	
 	public TaskExecutor() {
 		que = new ConcurrentLinkedQueue<>();
 		eCache = DataManager.get().getEqpCache();
 		biz = new SampleBusiness();
-		cnt = 0;
+		cnt = new AtomicLong(0);
 	}
 	
 	public void put(Msg msg) {
@@ -28,7 +29,7 @@ public class TaskExecutor extends Thread {
 	}
 	
 	public long getCnt() {
-		return cnt;
+		return cnt.get();
 	}
 		
 	public void run( ) {
@@ -40,7 +41,7 @@ public class TaskExecutor extends Thread {
 				if( msg != null ) {
 					while(true) {
 						if( sm.isMaster() ) {
-							cnt++;
+							cnt.incrementAndGet();
 							biz.bizMain(msg.hdr, msg.body);
 							eCache.put(msg.hdr.eqpId, msg.hdr.index);
 							break;
