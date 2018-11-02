@@ -24,7 +24,7 @@ public class RabbitWorkerII extends Thread {
 		channel = con.createChannel();
 		channel.exchangeDeclare(cm.getIndiv().get("exchange_name"), "topic");
 		queName = cm.getMachineId();
-		channel.queueDeclare(queName, true, false, true, null);
+		channel.queueDeclare(queName, true, false, false, null);
 		for(String k : topicLst) {
 			channel.queueBind(queName, cm.getIndiv().get("exchange_name"), k);
 		}
