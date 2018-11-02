@@ -29,7 +29,7 @@ public class RabbitWorkerI extends Thread {
 		channel = con.createChannel();
 		channel.exchangeDeclare(cm.getIndiv().get("exchange_name"), "topic");
 		queName = topicLst.get(0).toLowerCase(Locale.KOREAN);
-		channel.queueDeclare(queName, false, false, true, null);
+		channel.queueDeclare(queName, true, false, true, null);
 		for(String k : topicLst) {
 			channel.queueBind(queName, cm.getIndiv().get("exchange_name"), k);
 		}
