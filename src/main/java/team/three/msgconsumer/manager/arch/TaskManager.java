@@ -52,9 +52,13 @@ public class TaskManager {
 	
 	public void printCnt() {
 		Iterator<String> keys = thds.keySet().iterator();
+		long tot = al.get();
+		long cnt;
 		while(keys.hasNext()) {
 			String key = keys.next();
-			System.out.println("#key:" + key + "  cnt:" + thds.get(key).getCnt());
+			cnt = thds.get(key).getCnt();
+			if( tot != cnt )
+				System.out.println("#key:" + key + "  cnt:" + thds.get(key).getCnt());
 		}
 		System.out.println("=== Total pass cnt : " + al.get());
 	}
